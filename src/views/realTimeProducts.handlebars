@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{title}}</title>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/socket.js"></script>
+</head>
+<body>
+  <h1>Productos en tiempo real</h1>
+  <ul id="product-list">
+    <!-- Aquí los productos se agregarán dinámicamente -->
+  </ul>
+
+  <form id="add-product-form">
+    <input type="text" id="product-title" placeholder="Título del producto" required>
+    <button type="submit">Agregar Producto</button>
+  </form>
+
+  <script>
+    // Función para agregar el producto a la lista y emitirlo via WebSocket
+    const form = document.getElementById('add-product-form');
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const title = document.getElementById('product-title').value;
+      const newProduct = { title }; // Crear el objeto de producto
+      fetch('/api/products', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(newProduct) // Enviar el nuevo producto al servidor
+      })
+      .then(response => response.json())
+      .then(product => {
+        console.log('Producto agregado:', product);
+        // Emitir el evento WebSocket para que los clientes se actualicen
+        socket.emit('addProduct', product);
+      })
+      .catch(err => console.error('Error al agregar el producto:', err));
+    });
+  </script>
+</body>
+</html>
