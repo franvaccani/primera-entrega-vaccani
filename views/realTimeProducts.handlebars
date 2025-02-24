@@ -1,0 +1,32 @@
+<h1 class="mb-4">Administración en Tiempo Real</h1>
+
+<div class="card mb-4">
+  <div class="card-body">
+    <h5 class="card-title">Agregar Nuevo Producto</h5>
+    <form id="productForm" class="row g-3">
+      <div class="col-md-4">
+        <input type="text" class="form-control" placeholder="Nombre del producto" id="title" required>
+      </div>
+      <div class="col-md-4">
+        <input type="text" class="form-control" placeholder="Descripción" id="description" required>
+      </div>
+      <div class="col-md-2">
+        <input type="number" class="form-control" placeholder="Precio" id="price" step="0.01" required>
+      </div>
+      <div class="col-md-2">
+        <input type="text" class="form-control" placeholder="Código SKU" id="code" required>
+      </div>
+      <div class="col-12">
+        <button type="submit" class="btn btn-success">
+          <i class="bi bi-plus-circle"></i> Agregar Producto
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div id="productsList" class="row row-cols-1 row-cols-md-3 g-4">
+  <!-- Los productos se actualizarán automáticamente aquí -->
+</div>
+
+<script src="/js/realTimeProducts.js"></script>
